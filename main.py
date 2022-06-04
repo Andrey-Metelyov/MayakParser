@@ -1,11 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 class Product:
     def __init__(self, name, price, url):
         self.name = name
         self.price = price
         self.url = url
+
 
 def get_last_page(url):
     response = requests.get(url)
@@ -15,6 +17,7 @@ def get_last_page(url):
     lis = pagination.find_all('li')
     # print(lis)
     return int(lis[-1].find('a').text)
+
 
 def get_products(url):
     response = requests.get(url)
@@ -55,6 +58,7 @@ print('Saving to file: ' + file_name)
 file = open(file_name, 'w')
 
 for product in products:
-    file.write('"' + product.name + '"' + "," + '"' + product.price + '","https://chita.magazinmayak.ru' + product.url + '"\n')
+    file.write(
+        '"' + product.name + '"' + "," + '"' + product.price + '","https://chita.magazinmayak.ru' + product.url + '"\n')
 file.close()
 print('Done')
